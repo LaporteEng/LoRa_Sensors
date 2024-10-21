@@ -1,4 +1,4 @@
-# LoRa_Sensors
+# Desenvolvimento de um sistema de monitoramento de umidade e temperatura com comunicação LoRa
 
   O sistema envolve a criação de uma rede de sensores de umidade e temperatura utilizando
 comunicação LoRa (Long Range) sem o uso de um gateway. O LoRa permite a comunicação
