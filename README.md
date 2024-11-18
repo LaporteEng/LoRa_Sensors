@@ -1,4 +1,7 @@
 # Desenvolvimento de um sistema de monitoramento de umidade e temperatura com comunicação LoRa
+
+**Autores**: João Victor Felipe Laporte e Gustavo Sargenti da Silva Hartmann de Andrade Neves
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/98cd10c3-18ba-4493-bde3-dc58e55140a3" alt="Imagem exemplo" width="700"/>
 </p>
