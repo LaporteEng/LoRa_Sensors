@@ -15,7 +15,7 @@ Conforme apresentado no diagrama, é composto por:
       
 2. Software:
     - Firmware para ESP32 para ler dados dos sensores e transmitir via LoRa.
-    - Microcontrolador receptor para receber dados via LoRa e exibí-los.
+    - Microcontrolador receptor para receber dados via LoRa e enviá-los ao computador via WiFi (TCP).
     - Interface para exibição de dados em tempo real.
    
 # Descrição dos Componentes do Projeto
