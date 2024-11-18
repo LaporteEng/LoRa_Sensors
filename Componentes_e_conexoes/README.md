@@ -8,15 +8,16 @@ A seguir, é possível visualizar um diagrama de blocos que descreve o projeto.
 
 Conforme apresentado no diagrama, é composto por:
 1. Hardware:
-    - Sensores de temperatura.
+    - Sensor de temperatura e umidade.
     - Módulos de comunicação LoRa.
     - Microcontroladores ESP32.
-    - Fontes de alimentação.
+    - Fonte de alimentação.
       
 2. Software:
     - Firmware para ESP32 para ler dados dos sensores e transmitir via LoRa.
-    - Microcontrolador receptor para receber dados via LoRa e exibi-los.
+    - Microcontrolador receptor para receber dados via LoRa e exibí-los.
     - Interface para exibição de dados via serial em tempo real.
+   
 # Descrição dos Componentes do Projeto
 
 Este projeto utiliza os seguintes componentes:
@@ -52,7 +53,7 @@ O ESP32 é amplamente utilizado devido à sua versatilidade e custo-benefício. 
 O módulo LoRa E32900T20D é um transceptor sem fio que utiliza a tecnologia LoRa (Long Range) para transmissão de dados a longas distâncias, utilizando baixo consumo de energia. Ele opera em frequências sub-giga hertz (como 433 MHz ou 915 MHz), o que permite que os sinais sejam transmitidos por longas distâncias (geralmente até 10-15 km em áreas abertas) com baixo consumo de energia e boa resistência a interferências.
 
 ### Razão para Utilização:
-Este módulo é ideal para sistemas que precisam enviar dados a longas distâncias, especialmente em ambientes onde as redes de comunicação tradicionais, como Wi-Fi ou GSM, não são viáveis ou não têm cobertura adequada. A utilização do LoRa permite a comunicação em áreas remotas ou em locais de difícil acesso, com baixo consumo de energia e alta confiabilidade. No contexto do projeto, o módulo LoRa pode ser usado para enviar dados do sensor de temperatura e umidade para uma estação base ou servidor, utilizando pouca energia e cobrindo grandes distâncias.
+Este módulo é ideal para sistemas que precisam enviar dados a longas distâncias, especialmente em ambientes onde as redes de comunicação tradicionais, como Wi-Fi ou GSM, não são viáveis ou não têm cobertura adequada. A utilização do LoRa permite a comunicação em áreas remotas ou em locais de difícil acesso, com baixo consumo de energia e alta confiabilidade. No contexto do projeto, o módulo LoRa pode ser usado para enviar dados do sensor de temperatura e umidade para um receptor, utilizando pouca energia e cobrindo grandes distâncias.
 
 ## 3. Sensor de Temperatura e Umidade DHT22
 
