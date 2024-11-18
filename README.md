@@ -6,6 +6,7 @@
   <img src="https://github.com/user-attachments/assets/98cd10c3-18ba-4493-bde3-dc58e55140a3" alt="Imagem exemplo" width="700"/>
 </p>
 
+- [Componentes e conexões](Componentes_e_conexoes)
 
   O sistema envolve a criação de uma rede de sensores de umidade e temperatura utilizando
 comunicação LoRa (Long Range) sem o uso de um gateway. O LoRa permite a comunicação
