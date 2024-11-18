@@ -11,12 +11,12 @@ Conforme apresentado no diagrama, é composto por:
     - Sensores de temperatura.
     - Módulos de comunicação LoRa.
     - Microcontroladores ESP32.
-    - Fontes de alimentação e baterias.
+    - Fontes de alimentação.
       
 2. Software:
     - Firmware para ESP32 para ler dados dos sensores e transmitir via LoRa.
     - Microcontrolador receptor para receber dados via LoRa e exibi-los.
-    - Interface web ou painel para exibir dados em tempo real.
+    - Interface para exibição de dados via serial em tempo real.
 # Descrição dos Componentes do Projeto
 
 Este projeto utiliza os seguintes componentes:
@@ -76,3 +76,9 @@ O DHT22 é utilizado devido à sua precisão e custo acessível. Ele oferece uma
 - **Sensor DHT22**: Mede a temperatura e a umidade do ambiente, fornecendo dados que são coletados pelo ESP32 e enviados ao longo da rede LoRa para monitoramento remoto.
 
 Esses componentes são escolhidos devido à sua combinação de baixo custo, baixa potência, facilidade de uso e capacidade de operação em ambientes com limitações de conectividade, oferecendo uma solução eficiente para o projeto.
+
+## Referências
+
+- Espressif Systems. ESP32 Wi-Fi & Bluetooth SoC. Disponível em: https://www.espressif.com/en/products/socs/esp32. Acesso em: 18 nov. 2024.
+- EBYTE. LoRa/WiFi/BLE/ZigBee wireless modules Manufacturers, industrial IoT terminals suppliers. Disponível em: https://www.cdebyte.com. Acesso em: 17 nov. 2024.
+- Aosong Electronics Co., Ltd. ASAIR Sensor. Disponível em: http://www.aosong.com/en/. Acesso em: 18 nov. 2024.
