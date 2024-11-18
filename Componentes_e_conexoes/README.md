@@ -4,7 +4,7 @@ Neste diretório, serão apresentados os compenentes utilizados e suas conexões
 
 A seguir, é possível visualizar um diagrama de blocos que descreve o projeto.
 
-![Diagrama de Blocos](DiagramaDeBlocos.png)
+![image](https://github.com/user-attachments/assets/906be51e-5d4c-4d72-bfc8-aa841570862b)
 
 Conforme apresentado no diagrama, é composto por:
 1. Hardware:
