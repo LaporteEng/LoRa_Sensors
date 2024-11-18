@@ -26,7 +26,13 @@ Este projeto utiliza os seguintes componentes:
 3. **Sensor de Temperatura e Umidade DHT22**
 
 ## 1. ESP32
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f673b9d5-a285-49c0-a299-b4abc0e7da35" alt="Fonte: Xprojetos, 2019." width="400"/>
+</p>
+<p align="center">
+  Fonte: <a href="https://xprojetos.net/esp32-e-suas-versoes/">xProjetos, 2019 
+</p>
+      
 ### Descrição:
 O ESP32 é um microcontrolador desenvolvido pela Espressif Systems, com capacidades de Wi-Fi e Bluetooth integradas. Ele possui uma arquitetura de 32 bits, com alto desempenho, baixo consumo de energia e uma grande variedade de interfaces de comunicação, como SPI, I2C, UART, ADC, DAC e PWM.
 
@@ -35,6 +41,13 @@ O ESP32 é amplamente utilizado devido à sua versatilidade e custo-benefício. 
 
 ## 2. Módulo EBYTE LoRa E32900T20D
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8e00d34d-15f9-4cfd-8294-75cbdf1d9b20" alt="Fonte:cdebyte" width="400"/>
+</p>
+<p align="center">
+  Fonte: <a href="https://www.cdebyte.com/products/E32-900T20D">cdebyte
+</p>
+      
 ### Descrição:
 O módulo LoRa E32900T20D é um transceptor sem fio que utiliza a tecnologia LoRa (Long Range) para transmissão de dados a longas distâncias, utilizando baixo consumo de energia. Ele opera em frequências sub-giga hertz (como 433 MHz ou 915 MHz), o que permite que os sinais sejam transmitidos por longas distâncias (geralmente até 10-15 km em áreas abertas) com baixo consumo de energia e boa resistência a interferências.
 
@@ -43,6 +56,13 @@ Este módulo é ideal para sistemas que precisam enviar dados a longas distânci
 
 ## 3. Sensor de Temperatura e Umidade DHT22
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/37cc7d90-2eab-460a-ada4-1ed84da9e27d" alt="Fonte:arduinoecia, 2015" width="400"/>
+</p>
+<p align="center">
+  Fonte: <a href="https://www.arduinoecia.com.br/sensor-de-temperatura-e-umidade-dht22/">arduinoecia, 2015
+</p>
+      
 ### Descrição:
 O DHT22 é um sensor digital de temperatura e umidade, capaz de medir a temperatura no intervalo de -40°C a 80°C e a umidade relativa de 0 a 100%, com uma boa precisão para a maioria das aplicações. Ele possui um sensor resistivo de umidade e um termistor para medir a temperatura, e a comunicação com o microcontrolador é feita através de um único pino digital, simplificando a integração.
 
