@@ -1,6 +1,5 @@
 # Conexão Wi-Fi do ESP32
-
-O objetivo deste teste é configurar o ESP32 para se conectar a uma rede WiFi e hospedar um servidor HTTP básico. Este servidor enviará uma mensagem simples e um contador que é incrementado a cada 10 segundos, permitindo a verificação da conectividade e funcionalidade em tempo real.
+O código foi projetado para simular a comunicação em tempo real, utilizando um contador que é atualizado automaticamente a cada 10 segundos. Esse contador, exibido no servidor HTTP, demonstra como a comunicação pode ser realizada de maneira dinâmica entre o ESP32 e o usuário conectado à rede. A ideia é utilizar essa simulação de troca de dados em tempo real para entender o fluxo de informações, que posteriormente será adaptado para atribuir as configurações de comunicação via LoRa, permitindo que o ESP32 utilize o LoRa para enviar e receber dados de forma eficiente em um ambiente de rede sem fio.
 
 ## Componentes Utilizados
 * ESP32: Microcontrolador com capacidades de WiFi e Bluetooth.
@@ -16,7 +15,9 @@ O objetivo deste teste é configurar o ESP32 para se conectar a uma rede WiFi e 
 
 # Código
 
-Para que o ESP32 pudesse atualizar o contador e exibi-lo em uma página web, foi implementado um servidor HTTP no ESP32 que servisse uma página HTML e uma rota para obter o valor atual do contador.
+Para que o ESP32 pudesse atualizar o contador e exibi-lo em uma página web, foi implementado um servidor HTTP no ESP32 que servisse uma página HTML e uma rota para obter o valor atual do contador. 
+
+Código completo da implementação:
 
 ```cpp
 #include <WiFi.h>                                      // Biblioteca para conectar o ESP32 à rede WiFi
@@ -114,7 +115,7 @@ void loop() {
   server.handleClient();                               // Mantém o servidor rodando e aguardando requisições
 }
 ```
-A seguir, será apresentada uma explicação detalhada sobre os principais componentes do código, como a conexão WiFi, a criação do servidor HTTP, a atualização do contador e a interação com o usoário através da página web.
+A seguir, será apresentada uma explicação detalhada sobre os principais componentes do código, como a conexão WiFi, a criação do servidor HTTP, a atualização do contador e a interação com o usuário através da página web.
 
 # Conexão Wi-Fi
 Para estabelecer a conexão do ESP32 com a rede Wi-Fi, será utilizado o seguinte código:
@@ -165,7 +166,7 @@ void loop() {
   ST_conexao();                                        // Chama a função para controlar o LED de status
 }
 ```
-Se o dispositivo estiver conectado, ela acende um LED no pino 2 (em azul). Caso contrário, apaga o LED, indicando que a conexão não foi estabelecida. Isso fornece um feedback visual simples sobre o status da conexão.
+Se o dispositivo estiver conectado, ela acende um LED no pino 2. Caso contrário, apaga o LED, indicando que a conexão não foi estabelecida. Isso fornece um feedback visual simples sobre o status da conexão.
 <p align="center">
   <img src="https://github.com/user-attachments/assets/016124d6-8570-42e8-bba4-a61b911204e3" alt="Fonte: Xprojetos, 2019." width="400"/>
 </p>
@@ -177,7 +178,7 @@ Quando o ESP32 se conecta à rede, ele imprime uma mensagem de sucesso junto com
 
 
 ## Servidor HTTP
-Para que o ESP32 pudesse atualizar o contador e exibi-lo em uma página web, foi implementado um servidor HTTP no ESP32 que servisse uma página HTML e uma rota para obter o valor atual do contador. O servidor HTTP serve para permitir que o microcontrolador se comunique com outros dispositivos na rede, como computadores, smartphones ou outros sistemas conectados. Ele atua como uma interface entre o ESP32 e os dispositivos que fazem requisições, permitindo que o ESP32 envie informações, responda a comandos e até mesmo controle hardware conectado, como LEDs ou sensores. Tendo em vista a conexão Wi-Fi realizada, será implementado o código implementação HTTP:
+Para que o ESP32 pudesse atualizar o contador e exibi-lo em uma página web, foi implementado um servidor HTTP no ESP32 que servisse uma página HTML e uma rota para obter o valor atual do contador. O servidor HTTP serve para permitir que o microcontrolador se comunique com outros dispositivos na rede, como computadores, smartphones ou outros sistemas conectados. Ele atua como uma interface entre o ESP32 e os dispositivos que fazem requisições, permitindo que o ESP32 envie informações, responda a comandos e até mesmo controle hardware conectado, como LEDs ou sensores.Tendo em vista a conexão Wi-Fi estabelecida, será implementado o código para a configuração do servidor HTTP:
 ```cpp
 #include <WebServer.h>                                 // Biblioteca para criar um servidor HTTP no ESP32
 
@@ -233,5 +234,7 @@ Após integrar o código de comunicação HTTP com o código de conexão Wi-Fi, 
 </p>
 
 Para acessar o servidor HTTP do ESP32, basta obter o endereço IP exibido no terminal serial após a conexão com o Wi-Fi e inseri-lo na barra de endereços de um navegador (http://<IP_do_ESP32>/). Isso permitirá visualizar a página gerada pelo servidor, como o contador sendo atualizado em tempo real. 
-
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a0a7c92c-feb1-4a61-b8e4-96d12b4e9d2d" alt="Fonte: Xprojetos, 2019." width="400"/>
+</p>
 
