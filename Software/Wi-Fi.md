@@ -238,3 +238,9 @@ Para acessar o servidor HTTP do ESP32, basta obter o endereço IP exibido no ter
   <img src="https://github.com/user-attachments/assets/a0a7c92c-feb1-4a61-b8e4-96d12b4e9d2d" alt="Fonte: Xprojetos, 2019." width="400"/>
 </p>
 
+# Referências
+* USINA INFO. ESP32 e Wi-Fi: Como Funciona a Comunicação com a Internet. 2024. Disponível em: https://www.usinainfo.com.br/blog/esp32-wifi-comunicacao-com-a-internet/. Acesso em: 13 dez. 2024.
+
+* LABORATÓRIO DO ESP32. ESP32: Conectando-se à Internet via Wi-Fi. 2024. Disponível em: https://www.youtube.com/watch?v=FFPocTxOgmQ. Acesso em: 13 dez. 2024.
+
+* ESP32IO.COM. ESP32 Web Server Tutorial. Disponível em: https://esp32io.com/tutorials/esp32-web-server. Acesso em: 14 dez. 2024.
