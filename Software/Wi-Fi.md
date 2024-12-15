@@ -166,9 +166,14 @@ void loop() {
 }
 ```
 Se o dispositivo estiver conectado, ela acende um LED no pino 2 (em azul). Caso contrário, apaga o LED, indicando que a conexão não foi estabelecida. Isso fornece um feedback visual simples sobre o status da conexão.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/016124d6-8570-42e8-bba4-a61b911204e3" alt="Fonte: Xprojetos, 2019." width="400"/>
+</p>
 
-![image](https://github.com/user-attachments/assets/016124d6-8570-42e8-bba4-a61b911204e3)
-
+Quando o ESP32 finalmente se conecta à rede, ele imprime uma mensagem de sucesso junto com o endereço IP atribuído. Caso a conexão falhe, uma mensagem informando a falha na conexão é exibida.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/016124d6-8570-42e8-bba4-a61b911204e3" alt="Fonte: Xprojetos, 2019." width="400"/>
+</p>
 
 
 
