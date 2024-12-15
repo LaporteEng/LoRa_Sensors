@@ -117,7 +117,7 @@ void loop() {
 A seguir, será apresentada uma explicação detalhada sobre os principais componentes do código, como a conexão WiFi, a criação do servidor HTTP, a atualização do contador e a interação com o usoário através da página web.
 
 # Conexão Wi-Fi
-Para realizar a conexão do ESP32 com o Wi-Fi, utilizamos do seguinte código:
+Para estabelecer a conexão do ESP32 com a rede Wi-Fi, será utilizado o seguinte código:
 ```cpp
 #include <WiFi.h>
 
@@ -225,7 +225,13 @@ void loop() {
 
   server.handleClient();                               // Mantém o servidor rodando e aguardando requisições
 }
+```
+Após integrar o código de comunicação HTTP com o código de conexão Wi-Fi, podemos observar no terminal serial o processo de criação do servidor web.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e0c72889-0d22-43ac-be24-733d3ff92f0f" alt="Fonte: Xprojetos, 2019." width="400"/>
+</p>
 
+Para acessar o servidor HTTP do ESP32, basta obter o endereço IP exibido no terminal serial após a conexão com o Wi-Fi e inseri-lo na barra de endereços de um navegador (http://<IP_do_ESP32>/). Isso permitirá visualizar a página gerada pelo servidor, como o contador sendo atualizado em tempo real. 
 
 
