@@ -170,13 +170,61 @@ Se o dispositivo estiver conectado, ela acende um LED no pino 2 (em azul). Caso 
   <img src="https://github.com/user-attachments/assets/016124d6-8570-42e8-bba4-a61b911204e3" alt="Fonte: Xprojetos, 2019." width="400"/>
 </p>
 
-Quando o ESP32 finalmente se conecta à rede, ele imprime uma mensagem de sucesso junto com o endereço IP atribuído. Caso a conexão falhe, uma mensagem informando a falha na conexão é exibida.
+Quando o ESP32 se conecta à rede, ele imprime uma mensagem de sucesso junto com o endereço IP atribuído. Caso a conexão falhe, uma mensagem informando a falha na conexão é exibida.
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/016124d6-8570-42e8-bba4-a61b911204e3" alt="Fonte: Xprojetos, 2019." width="400"/>
+  <img src="https://github.com/user-attachments/assets/9ee3728d-0496-4905-a84a-da82365cd801" alt="Fonte: Xprojetos, 2019." width="400"/>
 </p>
 
 
+## Servidor HTTP
+Para que o ESP32 pudesse atualizar o contador e exibi-lo em uma página web, foi implementado um servidor HTTP no ESP32 que servisse uma página HTML e uma rota para obter o valor atual do contador. O servidor HTTP serve para permitir que o microcontrolador se comunique com outros dispositivos na rede, como computadores, smartphones ou outros sistemas conectados. Ele atua como uma interface entre o ESP32 e os dispositivos que fazem requisições, permitindo que o ESP32 envie informações, responda a comandos e até mesmo controle hardware conectado, como LEDs ou sensores. Tendo em vista a conexão Wi-Fi realizada, será implementado o código implementação HTTP:
+```cpp
+#include <WebServer.h>                                 // Biblioteca para criar um servidor HTTP no ESP32
 
+WebServer server(80);                                  // Cria um servidor HTTP na porta 80 (padrão)
+
+String mensagem = "Ola, sou o ESP32!";                 // Mensagem inicial a ser enviada
+unsigned long ultima_atualizacao = 0;                  // Variável para armazenar o tempo da última atualização
+int contador = 0;                                      // Contador que será incrementado a cada 10 segundos
+ 
+// Função que será chamada quando o servidor receber uma requisição na rota "/"
+void handleRoot() {
+  String page = "<html><body><h1>Contador: <span id='contador'>" + String(contador) + "</span></h1>";
+  page += "<p>" + mensagem + "</p>";                   // Exibe a mensagem
+  page += "<script>";
+  page += "setInterval(function(){";
+  page += "  fetch('/getCounter').then(response => response.text()).then(data => {";
+  page += "    document.getElementById('contador').innerHTML = data;";
+  page += "  });";
+  page += "}, 10000);";                                // Atualiza o contador a cada 10 segundos
+  page += "</script>";
+  page += "</body></html>";
+  server.send(200, "text/html", page);                 // Envia a página com o contador
+}
+
+// Função que retorna o contador atual
+void handleGetCounter() {
+  server.send(200, "text/plain", String(contador));    // Retorna o valor atual do contador
+}
+void setup() {
+ // Configura o servidor para responder com a função handleRoot quando acessar "/"
+    server.on("/", handleRoot);
+    
+    // Rota para retornar o contador atual
+    server.on("/getCounter", handleGetCounter);
+    
+    server.begin();                                    // Inicia o servidor HTTP
+    Serial.println("Servidor HTTP iniciado");
+}
+void loop() {
+  // Verifica se 10 segundos se passaram desde a última atualização
+  if (millis() - ultima_atualizacao >= 10000) {
+    contador++;                                        // Incrementa o contador
+    ultima_atualizacao = millis();                     // Atualiza o tempo da última execução
+  }
+
+  server.handleClient();                               // Mantém o servidor rodando e aguardando requisições
+}
 
 
 
