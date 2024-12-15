@@ -168,6 +168,9 @@ void loop() {
 Se o dispositivo estiver conectado, ela acende um LED no pino 2 (em azul). Caso contrário, apaga o LED, indicando que a conexão não foi estabelecida. Isso fornece um feedback visual simples sobre o status da conexão.
 
 
+https://github.com/user-attachments/assets/016124d6-8570-42e8-bba4-a61b911204e3
+
+
 
 
 
