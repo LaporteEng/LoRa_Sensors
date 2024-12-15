@@ -14,7 +14,10 @@ O objetivo deste teste é configurar o ESP32 para se conectar a uma rede WiFi e 
 
 3 - Servidor HTTP: Implementação de um servidor HTTP simples que responderá com uma mensagem e um contador incrementado.
 
+## Código
+
 Para que o ESP32 pudesse atualizar o contador e exibi-lo em uma página web, foi necessário implementar um servidor HTTP no ESP32 que servisse uma página HTML e uma rota para obter o valor atual do contador.
+
 
 
 
