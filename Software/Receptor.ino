@@ -13,8 +13,8 @@
 EBYTE LoRa(&Serial2, M0_PIN, M1_PIN, AUX_PIN);
 
 // Dados de Wi-Fi
-const char* ssid = "VIVOFIBRA-3BD1";                    // Nome da rede WiFi (SSID)
-const char* senha = "Buganvilha*";                      // Senha da rede WiFi
+const char* ssid = "SSID";                    // Nome da rede WiFi (SSID)
+const char* senha = "SENHA";                      // Senha da rede WiFi
 
 WebServer server(80);                                   // Cria um servidor HTTP na porta 80 (padrão)
 
