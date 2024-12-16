@@ -166,7 +166,7 @@ Quando o ESP32 se conecta à rede, ele imprime uma mensagem de sucesso junto com
 
 Para acessar o servidor HTTP do ESP32, basta obter o endereço IP exibido no terminal serial após a conexão com o Wi-Fi e inseri-lo na barra de endereços de um navegador (http://<IP_do_ESP32>/). Isso permitirá visualizar a página gerada pelo servidor, como a mensagem sendo atualizada em tempo real. 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a0a7c92c-feb1-4a61-b8e4-96d12b4e9d2d" alt="Fonte: Xprojetos, 2019." width="400"/>
+  <img src="https://github.com/user-attachments/assets/5f221218-3a13-47ae-bdda-1a2fe1243ee5" alt="Fonte: Xprojetos, 2019." width="400"/>
 </p>
 
 
