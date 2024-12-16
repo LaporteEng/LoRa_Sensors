@@ -178,7 +178,7 @@ Quando o ESP32 se conecta à rede, ele imprime uma mensagem de sucesso junto com
 
 
 ## Servidor HTTP
-Para que o ESP32 pudesse atualizar o contador e exibi-lo em uma página web, foi implementado um servidor HTTP no ESP32 que servisse uma página HTML e uma rota para obter o valor atual do contador. O servidor HTTP serve para permitir que o microcontrolador se comunique com outros dispositivos na rede, como computadores, smartphones ou outros sistemas conectados. Ele atua como uma interface entre o ESP32 e os dispositivos que fazem requisições, permitindo que o ESP32 envie informações, responda a comandos e até mesmo controle hardware conectado, como LEDs ou sensores.Tendo em vista a conexão Wi-Fi estabelecida, será implementado o código para a configuração do servidor HTTP:
+Para que o ESP32 pudesse atualizar o contador e exibi-lo em uma página web, foi implementado um servidor HTTP no ESP32 que servisse uma página HTML e uma rota para obter o valor atual do contador. O servidor HTTP serve para permitir que o microcontrolador se comunique com outros dispositivos na rede, como computadores, smartphones ou outros sistemas conectados. Ele atua como uma interface entre o ESP32 e os dispositivos que fazem requisições, permitindo que o ESP32 envie informações, responda a comandos e até mesmo controle hardware conectado, como LEDs ou sensores. Tendo em vista a conexão Wi-Fi estabelecida, será implementado o código para a configuração do servidor HTTP:
 ```cpp
 #include <WebServer.h>                                 // Biblioteca para criar um servidor HTTP no ESP32
 
