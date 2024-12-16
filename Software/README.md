@@ -1,60 +1,81 @@
-# Conexão Wi-Fi do ESP32
-O código foi projetado para simular a comunicação em tempo real, utilizando um contador que é atualizado automaticamente a cada 10 segundos. Esse contador, exibido no servidor HTTP, demonstra como a comunicação pode ser realizada de maneira dinâmica entre o ESP32 e o usuário conectado à rede. A ideia é utilizar essa simulação de troca de dados em tempo real para entender o fluxo de informações, que posteriormente será adaptado para atribuir as configurações de comunicação via LoRa, permitindo que o ESP32 utilize o LoRa para enviar e receber dados de forma eficiente em um ambiente de rede sem fio.
+# Conexão entre os Módulos
+O projeto visa implementar a conexão de dois módulos LoRa, um atuando como transmissor e outro como receptor, ambos conectados a microcontroladores ESP32. A mensagem é enviada pelo módulo transmissor e recebida pelo módulo receptor, que está conectado à internet. Utiliza-se um servidor HTTP para visualizar a mensagem recebida na web.
 
 ## Componentes Utilizados
 * ESP32: Microcontrolador com capacidades de WiFi e Bluetooth.
 * Rede WiFi: Rede sem fio à qual o ESP32 se conectará.
 * Computador: Programar o ESP32 e acessar o servidor HTTP.
+* Módulo LoRa Transmissor: Módulo responsável por enviar dados via comunicação LoRa.
+* Módulo LoRa Receptor: Módulo responsável por receber dados via comunicação LoRa.
 
 ## Passos para Implementação
 1 - Configuração do Ambiente de Desenvolvimento: Utilização da Arduino IDE para programar o ESP32.
 
 2 - Conexão à Rede WiFi: Configuração do ESP32 para conectar-se a uma rede WiFi específica.
 
-3 - Servidor HTTP: Implementação de um servidor HTTP simples que responderá com uma mensagem e um contador incrementado.
+3 - Servidor HTTP: Implementação de um servidor HTTP no ESP32 que serve uma página HTML e uma rota para obter a mensagem recebida via LoRa.
 
-# Código
+# Módulo Receptor
 
-Para que o ESP32 pudesse atualizar o contador e exibi-lo em uma página web, foi implementado um servidor HTTP no ESP32 que servisse uma página HTML e uma rota para obter o valor atual do contador. 
-
-Código completo da implementação:
+Código principal da implementação:
 
 ```cpp
 #include <WiFi.h>                                      // Biblioteca para conectar o ESP32 à rede WiFi
 #include <WebServer.h>                                 // Biblioteca para criar um servidor HTTP no ESP32
+#include <EBYTE.h>                                      
 
-// Substitua pelos seus dados de Wi-Fi
-const char* ssid = "REDE";                      // Nome da rede WiFi (SSID)
-const char* senha = "SENHA";                      // Senha da rede WiFi
+// Definição dos pinos
+#define TXD_PIN 17 // Pino TX2 do ESP32 conectado ao RX do módulo LoRa
+#define RXD_PIN 16 // Pino RX2 do ESP32 conectado ao TX do módulo LoRa
+#define M0_PIN 21  // Pino M0 do módulo LoRa
+#define M1_PIN 19  // Pino M1 do módulo LoRa
+#define AUX_PIN 15 // Pino AUX do módulo LoRa
 
-WebServer server(80);                                  // Cria um servidor HTTP na porta 80 (padrão)
+// Objeto para comunicação LoRa
+EBYTE LoRa(&Serial2, M0_PIN, M1_PIN, AUX_PIN);
 
-String mensagem = "Ola, sou o ESP32!";                 // Mensagem inicial a ser enviada
-unsigned long ultima_atualizacao = 0;                  // Variável para armazenar o tempo da última atualização
-int contador = 0;                                      // Contador que será incrementado a cada 10 segundos
+// Dados de Wi-Fi
+const char* ssid = "SENHA";                    // Nome da rede WiFi (SSID)
+const char* senha = "Buganvilha*";                      // Senha da rede WiFi
 
-// Função que será chamada quando o servidor receber uma requisição na rota "/"
+WebServer server(80);                                   // Cria um servidor HTTP na porta 80 (padrão)
+
+String mensagem = "Ola, sou o ESP32 Receptor!";         // Mensagem inicial a ser enviada
+unsigned long ultima_atualizacao = 0;                   // Variável para armazenar o tempo da última atualização
+char buffer[64];                                        // Variável para armazenar a mensagem inserida pelo usuário
+
 void handleRoot() {
-  String page = "<html><body><h1>Contador: <span id='contador'>" + String(contador) + "</span></h1>";
-  page += "<p>" + mensagem + "</p>";                   // Exibe a mensagem
+  String page = "<html><body><h1>Mensagem Recebida: <span id='mensagem'>" + String(buffer) + "</span></h1>";
+  page += "<p>" + mensagem + "</p>"; // Exibe a mensagem fixa
   page += "<script>";
   page += "setInterval(function(){";
-  page += "  fetch('/getCounter').then(response => response.text()).then(data => {";
-  page += "    document.getElementById('contador').innerHTML = data;";
+  page += "  fetch('/getMessage').then(response => response.text()).then(data => {";
+  page += "    document.getElementById('mensagem').innerHTML = data;";
   page += "  });";
-  page += "}, 10000);";                                // Atualiza o contador a cada 10 segundos
+  page += "}, 2000);"; // Atualiza a mensagem recebida a cada 2 segundos
   page += "</script>";
   page += "</body></html>";
-  server.send(200, "text/html", page);                 // Envia a página com o contador
+  server.send(200, "text/html", page); // Envia a página com a mensagem
 }
 
-// Função que retorna o contador atual
-void handleGetCounter() {
-  server.send(200, "text/plain", String(contador));    // Retorna o valor atual do contador
+// Função que retorna a mensagem recebida
+void handleGetMessage() {
+  server.send(200, "text/plain", String(buffer)); // Retorna a mensagem armazenada no buffer
 }
 
 void setup() {
-  Serial.begin(115200);                                // Inicializa a comunicação serial para monitoramento
+  Serial.begin(9600);    // Comunicação com o monitor serial
+  Serial2.begin(9600, SERIAL_8N1, RXD_PIN, TXD_PIN);   // Comunicação com o módulo LoRa
+  
+  LoRa.init(); 
+  LoRa.SetAirDataRate(ADR_1K);  // Taxa de dados
+  LoRa.SetAddress(1);           // Endereço do receptor
+  LoRa.SetChannel(23);          // Canal 23
+  LoRa.SaveParameters(TEMPORARY);
+  LoRa.SetMode(EBYTE_MODE_NORMAL);
+  
+  Serial.println("Receptor iniciado!");
+  
   WiFi.begin(ssid, senha);                             // Inicia a conexão com a rede WiFi utilizando SSID e senha
 
   pinMode(2, OUTPUT);                                  // Configura o pino 2 como saída (para controle de LED)
@@ -65,7 +86,7 @@ void setup() {
       delay(500);                                      // Espera meio segundo entre tentativas
       Serial.print(".");                               // Exibe pontos no monitor serial enquanto tenta conectar
   }
-  // Quando a conexão é estabelecida
+  // Quando a conexão é estabelecida, imprime uma linha de asteriscos e o status
   Serial.print("\n\t");
   if (WiFi.status() == WL_CONNECTED) {
     for (int i = 0; i < 32; i++) {                     // Imprime uma linha de asteriscos
@@ -76,11 +97,8 @@ void setup() {
     Serial.println(WiFi.localIP());                    // Exibe o endereço IP do ESP32 na rede
     Serial.print("\t");
 
-    // Configura o servidor para responder com a função handleRoot quando acessar "/"
-    server.on("/", handleRoot);
-    
-    // Rota para retornar o contador atual
-    server.on("/getCounter", handleGetCounter);
+    server.on("/", handleRoot); // Define a rota principal
+    server.on("/getMessage", handleGetMessage); // Define a rota para obter a mensagem
     
     server.begin();                                    // Inicia o servidor HTTP
     Serial.println("Servidor HTTP iniciado");
@@ -92,7 +110,8 @@ void setup() {
     // Caso a conexão falhe, imprime uma mensagem de erro
     Serial.println("ESP32 não está conectado à internet.");
   }
-  delay(5000);                                         // Atraso de 5 segundos antes de continuar
+    Serial.print("\n");
+  delay(2000);                                         // Atraso de 5 segundos antes de continuar
 }
 
 // Função que controla o estado do LED conectado ao pino 2
@@ -104,128 +123,112 @@ void ST_conexao() {
 }
 
 void loop() {
-  ST_conexao();                                        // Chama a função para controlar o LED de status
-  
-  // Verifica se 10 segundos se passaram desde a última atualização
-  if (millis() - ultima_atualizacao >= 10000) {
-    contador++;                                        // Incrementa o contador
-    ultima_atualizacao = millis();                     // Atualiza o tempo da última execução
-  }
+  ST_conexao(); // Chama a função para controlar o LED de status
 
-  server.handleClient();                               // Mantém o servidor rodando e aguardando requisições
-}
-```
-A seguir, será apresentada uma explicação detalhada sobre os principais componentes do código, como a conexão WiFi, a criação do servidor HTTP, a atualização do contador e a interação com o usuário através da página web.
+  // Verifica se há dados disponíveis para leitura na Serial2
+  if (Serial2.available() > 0) {
+    // Garante que o buffer esteja vazio antes de usá-lo
+    memset(buffer, 0, sizeof(buffer));
 
-# Conexão Wi-Fi
-Para estabelecer a conexão do ESP32 com a rede Wi-Fi, será utilizado o seguinte código:
-```cpp
-#include <WiFi.h>
+    // Lê até encontrar '\n' ou preencher o buffer
+    int tamanho = Serial2.readBytesUntil('\n', buffer, sizeof(buffer) - 1);
 
-const char* ssid = "REDE";                      // Nome da rede WiFi (SSID)
-const char* senha = "SENHA";                      // Senha da rede WiFi
+    if (tamanho > 0) {
+      buffer[tamanho] = '\0'; // Finaliza a string recebida
 
-void setup() {
-  Serial.begin(115200);                                // Inicializa a comunicação serial para monitoramento
-  WiFi.begin(ssid, senha);                             // Inicia a conexão com a rede WiFi utilizando SSID e senha
+      // Exibe a mensagem recebida
+      Serial.print("Mensagem recebida: ");
+      Serial.println(buffer);
 
-  pinMode(2, OUTPUT);                                  // Configura o pino 2 como saída (para controle de LED)
-  delay(10);                                           // Pequeno atraso para garantir que o código seja executado corretamente
-
-  // Aguarda até que o ESP32 esteja conectado ao WiFi
-  while (WiFi.status() != WL_CONNECTED) {
-      delay(500);                                      // Espera meio segundo entre tentativas
-      Serial.print(".");                               // Exibe pontos no monitor serial enquanto tenta conectar
-  }
-  // Quando a conexão é estabelecida
-  Serial.print("\n\t");
-  if (WiFi.status() == WL_CONNECTED) {
-    for (int i = 0; i < 32; i++) {                     // Imprime uma linha de asteriscos
-      Serial.print("*");
-    }
-    Serial.println("\n\tESP32 está conectado à internet.");
-    Serial.print("\tEndereço IP: ");
-    Serial.println(WiFi.localIP());                    // Exibe o endereço IP do ESP32 na rede
-    Serial.print("\t");
-    for (int i = 0; i < 32; i++) {                     
-      Serial.print("*");
+    } else {
+      Serial.println("Erro ao receber mensagem!");
     }
   } else {
-    // Caso a conexão falhe, imprime uma mensagem de erro
-    Serial.println("ESP32 não está conectado à internet.");
+    Serial.println("Aguardando mensagem...");
   }
-  delay(5000);                                         // Atraso de 5 segundos antes de continuar
+
+  delay(1000); // Intervalo de 2 segundos para verificação
+
+  server.handleClient(); // Mantém o servidor rodando e aguardando requisições
 }
-void ST_conexao() {
-  if (WiFi.status() == WL_CONNECTED)                   // Se estiver conectado à internet
-    digitalWrite(2, HIGH);                             // Acende o LED (pino 2)
-  else
-    digitalWrite(2, LOW);                              // Apaga o LED se não estiver conectado
-}
-void loop() {
-  ST_conexao();                                        // Chama a função para controlar o LED de status
-}
+
+
 ```
-Se o dispositivo estiver conectado, ela acende um LED no pino 2. Caso contrário, apaga o LED, indicando que a conexão não foi estabelecida. Isso fornece um feedback visual simples sobre o status da conexão.
+Para fornecer um feedback visual simples sobre o status da conexão do dispositivo, o sistema foi configurado para acender um LED no pino 2 caso o dispositivo esteja conectado. Se a conexão não for estabelecida, o LED é apagado.
 <p align="center">
   <img src="https://github.com/user-attachments/assets/016124d6-8570-42e8-bba4-a61b911204e3" alt="Fonte: Xprojetos, 2019." width="400"/>
 </p>
 
-Quando o ESP32 se conecta à rede, ele imprime uma mensagem de sucesso junto com o endereço IP atribuído. Caso a conexão falhe, uma mensagem informando a falha na conexão é exibida.
+Quando o ESP32 se conecta à rede, ele imprime uma mensagem de sucesso junto com o endereço IP atribuído. Caso a conexão falhe, uma mensagem informando a falha na conexão é exibida. Para que o ESP32 pudesse atualizar a mensagem e exibi-la em uma página web, foi implementado um servidor HTTP no ESP32 que servisse uma página HTML e uma rota para obter o valor atual da mensagem. O servidor HTTP serve para permitir que o microcontrolador se comunique com outros dispositivos na rede, como computadores, smartphones ou outros sistemas conectados. Ele atua como uma interface entre o ESP32 e os dispositivos que fazem requisições, permitindo que o ESP32 envie informações, responda a comandos e até mesmo controle hardware conectado, como LEDs ou sensores. Para possibilitar a comunicação sem fio entre os módulos LoRa, foram implementadas as bibliotecas LoRa no código, permitindo que o ESP32 envie e receba dados via LoRa de forma eficiente.
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/9ee3728d-0496-4905-a84a-da82365cd801" alt="Fonte: Xprojetos, 2019." width="400"/>
+  <img src="https://github.com/user-attachments/assets/e0c72889-0d22-43ac-be24-733d3ff92f0f" alt="Fonte: Xprojetos, 2019." width="400"/>
 </p>
 
 
-## Servidor HTTP
-Para que o ESP32 pudesse atualizar o contador e exibi-lo em uma página web, foi implementado um servidor HTTP no ESP32 que servisse uma página HTML e uma rota para obter o valor atual do contador. O servidor HTTP serve para permitir que o microcontrolador se comunique com outros dispositivos na rede, como computadores, smartphones ou outros sistemas conectados. Ele atua como uma interface entre o ESP32 e os dispositivos que fazem requisições, permitindo que o ESP32 envie informações, responda a comandos e até mesmo controle hardware conectado, como LEDs ou sensores. Tendo em vista a conexão Wi-Fi estabelecida, será implementado o código para a configuração do servidor HTTP:
+
+# Módulo Transmissor
+
+
+
+Código principal da implementação:
+
 ```cpp
-#include <WebServer.h>                                 // Biblioteca para criar um servidor HTTP no ESP32
+#include <EBYTE.h>
 
-WebServer server(80);                                  // Cria um servidor HTTP na porta 80 (padrão)
+// Definição dos pinos
+#define TXD_PIN 17 // Pino TX2 do ESP32 conectado ao RX do módulo LoRa
+#define RXD_PIN 16 // Pino RX2 do ESP32 conectado ao TX do módulo LoRa
+#define M0_PIN 21  // Pino M0 do módulo LoRa
+#define M1_PIN 19  // Pino M1 do módulo LoRa
+#define AUX_PIN 15 // Pino AUX do módulo LoRa
 
-String mensagem = "Ola, sou o ESP32!";                 // Mensagem inicial a ser enviada
-unsigned long ultima_atualizacao = 0;                  // Variável para armazenar o tempo da última atualização
-int contador = 0;                                      // Contador que será incrementado a cada 10 segundos
- 
-// Função que será chamada quando o servidor receber uma requisição na rota "/"
-void handleRoot() {
-  String page = "<html><body><h1>Contador: <span id='contador'>" + String(contador) + "</span></h1>";
-  page += "<p>" + mensagem + "</p>";                   // Exibe a mensagem
-  page += "<script>";
-  page += "setInterval(function(){";
-  page += "  fetch('/getCounter').then(response => response.text()).then(data => {";
-  page += "    document.getElementById('contador').innerHTML = data;";
-  page += "  });";
-  page += "}, 10000);";                                // Atualiza o contador a cada 10 segundos
-  page += "</script>";
-  page += "</body></html>";
-  server.send(200, "text/html", page);                 // Envia a página com o contador
-}
+// Objeto para comunicação LoRa
+EBYTE LoRa(&Serial2, M0_PIN, M1_PIN, AUX_PIN);
 
-// Função que retorna o contador atual
-void handleGetCounter() {
-  server.send(200, "text/plain", String(contador));    // Retorna o valor atual do contador
-}
 void setup() {
- // Configura o servidor para responder com a função handleRoot quando acessar "/"
-    server.on("/", handleRoot);
-    
-    // Rota para retornar o contador atual
-    server.on("/getCounter", handleGetCounter);
-    
-    server.begin();                                    // Inicia o servidor HTTP
-    Serial.println("Servidor HTTP iniciado");
+  Serial.begin(9600);    // Comunicação com o monitor serial
+  Serial2.begin(9600, SERIAL_8N1, RXD_PIN, TXD_PIN);   // Comunicação com o módulo LoRa
+  
+  Serial.println();
+  Serial.println(LoRa.init()); 
+  LoRa.SetAirDataRate(ADR_1K);  // Taxa de dados
+  LoRa.SetAddress(1);           // Endereço do transmissor
+  LoRa.SetChannel(23);          // Canal 23
+  LoRa.SaveParameters(TEMPORARY);
+  LoRa.SetMode(EBYTE_MODE_NORMAL);
+  
+  Serial.println("Transmissor iniciado!");
 }
+
+String mensagem = ""; // Variável para armazenar a mensagem inserida pelo usuário
+
 void loop() {
-  // Verifica se 10 segundos se passaram desde a última atualização
-  if (millis() - ultima_atualizacao >= 10000) {
-    contador++;                                        // Incrementa o contador
-    ultima_atualizacao = millis();                     // Atualiza o tempo da última execução
+  // Verifica se há entrada do usuário via Serial
+  if (Serial.available() > 0) {
+    // Lê a mensagem digitada pelo usuário
+    mensagem = Serial.readStringUntil('\n'); // Lê até encontrar uma nova linha
+
+    // Remove espaços extras ou quebras de linha indesejadas
+    mensagem.trim();
+
+    // Envia a mensagem usando Serial2
+    Serial2.println(mensagem);
+
+    // Exibe a mensagem enviada no monitor serial
+    Serial.print("Mensagem enviada: ");
+    Serial.println(mensagem);
+
+    // Exibe status no monitor serial
+    if (Serial2) {
+      Serial.println("Mensagem enviada com sucesso!");
+    } else {
+      Serial.println("Falha ao enviar mensagem!");
+    }
   }
 
-  server.handleClient();                               // Mantém o servidor rodando e aguardando requisições
+  delay(200); // Intervalo para evitar leituras excessivas
 }
+
 ```
 Após integrar o código de comunicação HTTP com o código de conexão Wi-Fi, podemos observar no terminal serial o processo de criação do servidor web.
 
