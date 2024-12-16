@@ -164,11 +164,14 @@ Quando o ESP32 se conecta à rede, ele imprime uma mensagem de sucesso junto com
   <img src="https://github.com/user-attachments/assets/e0c72889-0d22-43ac-be24-733d3ff92f0f" alt="Fonte: Xprojetos, 2019." width="400"/>
 </p>
 
+Para acessar o servidor HTTP do ESP32, basta obter o endereço IP exibido no terminal serial após a conexão com o Wi-Fi e inseri-lo na barra de endereços de um navegador (http://<IP_do_ESP32>/). Isso permitirá visualizar a página gerada pelo servidor, como o contador sendo atualizado em tempo real. 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a0a7c92c-feb1-4a61-b8e4-96d12b4e9d2d" alt="Fonte: Xprojetos, 2019." width="400"/>
+</p>
+
 
 
 # Módulo Transmissor
-
-
 
 Código principal da implementação:
 
@@ -230,16 +233,7 @@ void loop() {
 }
 
 ```
-Após integrar o código de comunicação HTTP com o código de conexão Wi-Fi, podemos observar no terminal serial o processo de criação do servidor web.
-
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/e0c72889-0d22-43ac-be24-733d3ff92f0f" alt="Fonte: Xprojetos, 2019." width="400"/>
-</p>
-
-Para acessar o servidor HTTP do ESP32, basta obter o endereço IP exibido no terminal serial após a conexão com o Wi-Fi e inseri-lo na barra de endereços de um navegador (http://<IP_do_ESP32>/). Isso permitirá visualizar a página gerada pelo servidor, como o contador sendo atualizado em tempo real. 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/a0a7c92c-feb1-4a61-b8e4-96d12b4e9d2d" alt="Fonte: Xprojetos, 2019." width="400"/>
-</p>
+O código configura o ESP32 e o módulo LoRa para comunicação sem fio. Ele permite que o usuário envie mensagens através do monitor serial, que são então transmitidas via LoRa. O módulo LoRa é configurado com uma taxa de dados, endereço e canal específicos, e o status da transmissão é exibido no monitor serial.
 
 # Referências
 * USINA INFO. ESP32 e Wi-Fi: Como Funciona a Comunicação com a Internet. 2024. Disponível em: https://www.usinainfo.com.br/blog/esp32-wifi-comunicacao-com-a-internet/. Acesso em: 13 dez. 2024.
