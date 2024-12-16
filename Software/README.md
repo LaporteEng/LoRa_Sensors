@@ -35,8 +35,8 @@ Código principal da implementação:
 EBYTE LoRa(&Serial2, M0_PIN, M1_PIN, AUX_PIN);
 
 // Dados de Wi-Fi
-const char* ssid = "SENHA";                    // Nome da rede WiFi (SSID)
-const char* senha = "Buganvilha*";                      // Senha da rede WiFi
+const char* ssid = "SSID";                    // Nome da rede WiFi (SSID)
+const char* senha = "SENHA";                      // Senha da rede WiFi
 
 WebServer server(80);                                   // Cria um servidor HTTP na porta 80 (padrão)
 
@@ -241,3 +241,7 @@ O código configura o ESP32 e o módulo LoRa para comunicação sem fio. Ele per
 * LABORATÓRIO DO ESP32. ESP32: Conectando-se à Internet via Wi-Fi. 2024. Disponível em: https://www.youtube.com/watch?v=FFPocTxOgmQ. Acesso em: 13 dez. 2024.
 
 * ESP32IO.COM. ESP32 Web Server Tutorial. Disponível em: https://esp32io.com/tutorials/esp32-web-server. Acesso em: 14 dez. 2024.
+
+* YOUTUBE. LoRa EBYTE trocando mensagens - EBYTE E32. YouTube, 2023. Disponível em: https://www.youtube.com/watch?v=Obb9QtNuG1M. Acesso em: 15 dez. 2024.
+
+* KASPRZAK, Kris. EBYTE. 2024. Disponível em: https://github.com/KrisKasprzak/EBYTE. Acesso em: 15 dez. 2024.
