@@ -4,7 +4,7 @@
 
 ---
 <p align="center">
-  <img src="InicialLoRa" alt="Imagem ilustrativa do projeto" width="700"/>
+  <img src="InicialLoRa.png" alt="Imagem ilustrativa do projeto" width="700"/>
 </p>
 
 ## 📌 Visão Geral
