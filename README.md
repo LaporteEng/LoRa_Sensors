@@ -41,7 +41,7 @@ O repositório está organizado da seguinte forma:
 
 ---
 
-## 📡 Por que LoRa?
+## 📡 LoRa?
 
 🔹 **Alcance estendido** ➝ Permite comunicação em longas distâncias (km) sem a necessidade de infraestrutura complexa.
 
