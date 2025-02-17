@@ -78,6 +78,16 @@ O **DHT22** foi escolhido pela sua **precisão** e **facilidade de integração*
 
 ---
 
+# 🛠️ Conexões
+
+As conexões físicas foram realizadas conforme a imagem abaixo, em que a única diferença entre os entre o conjunto receptor e o transmissor é o sensor DHT22.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/441901da-c408-4cb6-8d4c-6d52584c5214" alt="Conexões" width="400"/>
+</p>
+
+---
+
 # 📝 Resumo da Utilização dos Componentes
 
 Aqui está um resumo de como cada componente contribui para o sucesso do projeto:
