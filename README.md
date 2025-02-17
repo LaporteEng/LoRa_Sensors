@@ -11,18 +11,20 @@
 
 Este projeto tem como objetivo o **desenvolvimento de um sistema de monitoramento de umidade e temperatura** utilizando **comunicação LoRa** (Long Range) sem a necessidade de um gateway intermediário.
 
-O sistema permite a coleta de dados ambientais e a transmissão dessas informações a longas distâncias, tornando-o ideal para aplicações em **agricultura de precisão, monitoramento ambiental, controle industrial e gestão de recursos hídricos**.
+O sistema permite a coleta de dados ambientais (temperatura e humidade) e a transmissão dessas informações a longas distâncias, tornando-o ideal para aplicações em **agricultura de precisão, monitoramento ambiental, controle industrial e gestão de recursos hídricos**.
 
-O diferencial deste projeto é a **utilização do protocolo LoRa**, que proporciona **baixo consumo de energia** e **alcance ampliado**, superando as limitações de outras tecnologias sem fio convencionais.
+O diferencial deste projeto é a **utilização do protocolo LoRa**, que proporciona **baixo consumo de energia** e **alcance ampliado**.
 
 ---
 
 ## 🎯 Objetivos
 
-✅ Criar uma rede de sensores para medição de **umidade** e **temperatura**.
+✅ Criar uma conexão com um sensor para medição de **umidade** e **temperatura**.
+
 ✅ Desenvolver uma comunicação eficiente utilizando **módulos LoRa**.
-✅ Garantir **baixo consumo de energia** para operação prolongada.
+
 ✅ Testar o **alcance e a confiabilidade** da comunicação LoRa em diferentes cenários.
+
 ✅ Criar uma interface para **visualização remota** dos dados.
 
 ---
@@ -31,11 +33,9 @@ O diferencial deste projeto é a **utilização do protocolo LoRa**, que proporc
 
 O repositório está organizado da seguinte forma:
 
-📁 **Componentes_e_conexoes** ➝ Especificação dos sensores, módulos LoRa e esquema de conexão.
+📁 **Hardware** ➝ Especificação dos sensores, módulos LoRa e esquema de conexão.
 
-📁 **Firmware** ➝ Código para transmissão e recepção de dados via LoRa.
-
-📁 **Interface_web** ➝ Desenvolvimento da interface para visualização dos dados.
+📁 **Software** ➝ Código para transmissão e recepção de dados via LoRa.
 
 📁 **Ensaios** ➝ Testes e experimentos realizados para avaliar o desempenho do sistema.
 
@@ -49,8 +49,6 @@ O repositório está organizado da seguinte forma:
 
 🔹 **Alta confiabilidade** ➝ Robustez contra interferências e operação eficiente em ambientes desafiadores.
 
-🔹 **Custo reduzido** ➝ Evita o uso de redes celulares ou Wi-Fi, diminuindo custos operacionais.
-
 ---
 
 ## 🏆 Impacto do Projeto
@@ -59,13 +57,6 @@ O repositório está organizado da seguinte forma:
 
 🌱 **Sustentabilidade** ➝ Monitoramento preciso pode ajudar na conservação de recursos naturais.
 
-🚜 **Agricultura Inteligente** ➝ Possibilita uma gestão mais eficiente de irrigação e condições ambientais.
+🚜 **Agricultura Inteligente** ➝ Possibilita uma gestão mais eficiente de processos como irrigação e monitoramento de condições ambientais em locais remotos.
 
----
-
-## 🚀 Vamos Começar!
-
-Para mais informações sobre a configuração do hardware e software, consulte a documentação em cada pasta do repositório.
-
-Caso tenha dúvidas ou sugestões, sinta-se à vontade para contribuir! 😊
 
