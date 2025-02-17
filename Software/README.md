@@ -46,7 +46,7 @@ Para acessar o servidor HTTP do ESP32, basta obter o **endereço IP** exibido no
 
 # 🛠️ Módulo Transmissor
 
-O código configura o **ESP32** e o **módulo LoRa** para comunicação sem fio. Ele permite que o usuário envie **mensagens** através do **monitor serial**, que são então transmitidas via LoRa. O módulo LoRa é configurado com uma taxa de dados, endereço e canal específicos, e o **status da transmissão** é exibido no monitor serial.
+O código configura o **ESP32** e o **módulo LoRa** para comunicação sem fio, permitindo que as leituras obtidas pelo sensor sejam transmitidas via LoRa. O módulo LoRa é configurado com uma taxa de dados, endereço e canal específicos, e o **status da transmissão** é exibido no monitor serial.
 
 ---
 
