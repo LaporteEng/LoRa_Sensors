@@ -4,7 +4,7 @@
 
 ---
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/98cd10c3-18ba-4493-bde3-dc58e55140a3" alt="Imagem ilustrativa do projeto" width="700"/>
+  <img src="InicialLoRa" alt="Imagem ilustrativa do projeto" width="700"/>
 </p>
 
 ## 📌 Visão Geral
